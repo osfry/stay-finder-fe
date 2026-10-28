@@ -19,6 +19,16 @@ export async function login(email: string, password: string) {
   return false;
 }
 
+export async function logout() {
+  const url = new URL(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout/`);
+
+  const response = await fetch(url, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  return response.ok;
+}
 
 export async function getMe(): Promise<AuthUser | null> {
   const url = new URL(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/me/`);

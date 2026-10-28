@@ -18,7 +18,18 @@ export default function AuthHeader() {
           </Link>
         </T.Header>
       )}
-      {auth.user && <T.Header>Logged in {auth.user.email}</T.Header>}
+      {auth.user && (
+          <div className="flex items-center gap-3">
+              <T.Header>Logged in {auth.user.email}</T.Header>
+              <button
+                  type="button"
+                  onClick={auth.logout}
+                  className="text-sm font-medium hover:underline"
+              >
+                  Log out
+              </button>
+          </div>
+      )}
     </div>
   );
 }
