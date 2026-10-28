@@ -10,9 +10,16 @@ type PropertyListProps = {
 export default async function PropertyList({
   searchParams,
 }: PropertyListProps) {
-  const location = (await searchParams).location?.toString() || "";
+  const params = await searchParams;
+  const location = params.location?.toString() || "";
+  const toNumber = (value: string | string[] | undefined) => {
+    const n = parseFloat(value?.toString() ?? "");
+    return Number.isFinite(n) ? n : undefined;
+  };
   const propertiesFilter: PropertiesFilter = {
     location,
+    maxPrice: toNumber(params.maxPrice),
+    guests: toNumber(params.guests),
   };
   const properties = await getProperties(propertiesFilter);
   return (

@@ -39,6 +39,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               >
                 List a stay
               </Link>
+              <Link
+                href="/host/properties"
+                className="text-sm font-medium text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white"
+              >
+                My properties
+              </Link>
               <AuthHeader/>
             </div>
           </header>

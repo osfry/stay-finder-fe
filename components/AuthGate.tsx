@@ -1,27 +1,30 @@
+"use client";
+
 import { useAuth } from "@/contexts/auth";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { PropsWithChildren, useEffect } from "react";
+import type { PropsWithChildren } from "react";
 
-export default function AuthGate({ children }: PropsWithChildren) {
+type AuthGateProps = PropsWithChildren<{
+  action?: string;
+}>;
+
+export default function AuthGate({
+  children,
+  action = "continue",
+}: AuthGateProps) {
   const auth = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!auth.isPending && !auth.user) {
-      router.replace("/auth/login");
-    }
-  }, [auth.isPending, auth.user, router]);
 
   if (auth.isPending) {
-    return <div>Loading...</div>;
+    return <p>Loading...</p>;
   }
   if (!auth.user) {
     return (
-      <div className="p-4 rounded-md bg-slate-200">
-        You have to be logged in to do this
-        <Link href={"/auth/login"}>Go to Login</Link>
-      </div>
+      <p>
+        <Link href="/auth/login" className="underline">
+          Log in
+        </Link>{" "}
+        to {action}.
+      </p>
     );
   }
   return children;
