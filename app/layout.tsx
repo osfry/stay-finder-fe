@@ -4,6 +4,7 @@ import Link from "next/link";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import AuthHeader from "@/components/AuthHeader";
+import UserNavLinks from "@/components/UserNavLinks";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,10 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
         <Providers>
           <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-black">
@@ -39,13 +37,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               >
                 List a stay
               </Link>
-              <Link
-                href="/host/properties"
-                className="text-sm font-medium text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white"
-              >
-                My properties
-              </Link>
-              <AuthHeader/>
+              <UserNavLinks />
+              <AuthHeader />
             </div>
           </header>
           {children}

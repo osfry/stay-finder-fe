@@ -31,8 +31,13 @@ export default function PropertyFilter({ filter }: PropertyFilterProps) {
     guests: filter.guests?.toString() ?? "",
   });
 
+  const [sort, setSort] = useState<string>(filter.sort ?? "");
+
   const onFiltering = () => {
     const params = new URLSearchParams();
+    if (sort) {
+      params.set("sort", sort);
+    }
     (Object.keys(values) as FilterKey[]).forEach((key) => {
       const value = values[key].trim();
       if (value) {
@@ -73,6 +78,16 @@ export default function PropertyFilter({ filter }: PropertyFilterProps) {
         onChange={(e) => setValues({ ...values, [active]: e.target.value })}
         className={`w-full ${fieldClass}`}
       />
+      <select
+        value={sort}
+        onChange={(e) => setSort(e.target.value)}
+        className={fieldClass}
+        aria-label="Sort by price"
+      >
+        <option value="">Sort by price</option>
+        <option value="asc">Price: low to high</option>
+        <option value="desc">Price: high to low</option>
+      </select>
       <button
         type="submit"
         className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-900"

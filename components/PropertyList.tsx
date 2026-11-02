@@ -20,6 +20,7 @@ export default async function PropertyList({
     location,
     maxPrice: toNumber(params.maxPrice),
     guests: toNumber(params.guests),
+    sort: params.sort === "asc" || params.sort === "desc" ? params.sort : undefined,
   };
   const properties = await getProperties(propertiesFilter);
   return (
